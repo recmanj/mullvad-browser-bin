@@ -1,0 +1,8 @@
+*
+!.gitignore
+!.SRCINFO
+!PKGBUILD
+!mullvad-browser.desktop
+!keys/
+!keys/pgp/
+!keys/pgp/*.asc
