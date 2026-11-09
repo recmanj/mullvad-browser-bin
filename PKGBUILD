@@ -21,10 +21,8 @@ options=(!strip !debug)
 source=("$_pkgname.desktop")
 source_x86_64=("https://cdn.mullvad.net/browser/$pkgver/$_pkgname-linux-x86_64-$pkgver.tar.xz"{,.asc})
 source_aarch64=("https://cdn.mullvad.net/browser/$pkgver/$_pkgname-linux-aarch64-$pkgver.tar.xz"{,.asc})
-# Tor Browser Developers (signing key) <torbrowser@torproject.org>
-# Mullvad Browser is built and signed by the Tor Project. Import the key before building:
-#   gpg --import keys/pgp/EF6E286DDA85EA2A4BA7DE684E2C6E8793298290.asc
-# or fetch it from torproject.org: gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
+# Tor Browser Developers <torbrowser@torproject.org>
+# gpg --import keys/pgp/EF6E286DDA85EA2A4BA7DE684E2C6E8793298290.asc
 validpgpkeys=('EF6E286DDA85EA2A4BA7DE684E2C6E8793298290')
 sha256sums=('5171d67e98b54082a9c60e0aa58c2a3a54c003d563f15ecb9d72f19b29d0f09f')
 sha256sums_x86_64=('aa571c6dc00aad214af9a92e414f3a6bd9e12139b4819f5af2f3aaaa3d9f4aa3'
@@ -38,7 +36,6 @@ package() {
 	install -dm0755 "$pkgdir/opt"
 	cp -a "$srcdir/$_pkgname" "$_dest"
 
-	# Updater and portable-mode files are unused in a root-owned system install.
 	rm -f "$_dest/start-mullvad-browser.desktop" \
 		"$_dest/Browser/start-mullvad-browser.desktop" \
 		"$_dest/Browser/execdesktop" \
@@ -49,16 +46,14 @@ package() {
 		"$_dest/Browser/removed-files" \
 		"$_dest/Browser/icons/updater.png"
 
-	# Upstream ships 0700/0600; make it readable by all users, never writable, no set[ug]id.
+	# Upstream ships 0700/0600
 	find "$_dest" -type d -exec chmod u=rwx,go=rx,u-s,g-s {} +
 	find "$_dest" -type f -perm -u+x -exec chmod 0755 {} +
 	find "$_dest" -type f ! -perm -u+x -exec chmod 0644 {} +
 
-	# System install mode: profile goes to ~/.mullvad-browser, nothing is written to /opt,
-	# and the app updater is disabled.
+	# Profile goes to ~/.mullvad-browser instead of /opt
 	touch "$_dest/Browser/is-packaged-app"
 
-	# Also disable update checks and update UI via enterprise policy (visible in about:policies).
 	install -Dm0644 /dev/stdin "$_dest/Browser/distribution/policies.json" <<-'JSON'
 	{
 	  "policies": {
@@ -67,7 +62,6 @@ package() {
 	}
 	JSON
 
-	# The launcher resolves symlinks, so a plain link is enough.
 	install -dm0755 "$pkgdir/usr/bin"
 	ln -s "/opt/$_pkgname/Browser/start-mullvad-browser" "$pkgdir/usr/bin/$_pkgname"
 
