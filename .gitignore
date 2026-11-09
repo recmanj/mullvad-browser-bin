@@ -6,3 +6,5 @@
 !keys/
 !keys/pgp/
 !keys/pgp/*.asc
+!.github/
+!.github/**
