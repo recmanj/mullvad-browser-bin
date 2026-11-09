@@ -1,0 +1,58 @@
+name: Update
+
+on:
+  schedule:
+    - cron: '23 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    steps:
+      - name: Install tools
+        run: |
+          pacman -Syu --noconfirm --needed git github-cli pacman-contrib
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check for a new release
+        id: check
+        run: .github/scripts/check-update.sh
+
+      - name: Update checksums and validate
+        if: steps.check.outputs.version != ''
+        env:
+          UPDATE_SUMS: '1'
+        run: .github/scripts/validate.sh
+
+      - name: Open pull request
+        if: steps.check.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.check.outputs.version }}
+        run: |
+          branch="update/$VERSION"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add PKGBUILD .SRCINFO
+          git commit -m "Update to $VERSION"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "Update to $VERSION" \
+            --body "Release notes: https://github.com/mullvad/mullvad-browser/releases/tag/$VERSION"
+          gh workflow run ci.yml --ref "$branch"
