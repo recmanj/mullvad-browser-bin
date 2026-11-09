@@ -3,12 +3,12 @@
 pkgname=mullvad-browser-bin
 _pkgname=mullvad-browser
 pkgver=16.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Privacy-focused web browser by Mullvad VPN and the Tor Project (binary release)'
 arch=(x86_64 aarch64)
 url='https://mullvad.net/en/browser'
 license=('MPL-2.0' 'GPL-3.0-or-later' 'OFL-1.1' 'Apache-2.0')
-depends=(alsa-lib dbus fontconfig freetype2 gcc-libs glibc gtk3 hicolor-icon-theme libxss)
+depends=(alsa-lib dbus fontconfig freetype2 glibc gtk3 hicolor-icon-theme libgcc libstdc++ libxss)
 optdepends=('libpulse: PulseAudio audio support'
 	'ffmpeg: H.264 and other media codecs'
 	'libnotify: desktop notifications'
@@ -31,9 +31,9 @@ sha256sums_aarch64=('7fda41ffe4c2d732a544f55092ef483128c224a2aa4680d863e793c75e0
                     'SKIP')
 
 package() {
-	local _dest="$pkgdir/opt/$_pkgname"
+	local _dest="$pkgdir/usr/lib/$_pkgname"
 
-	install -dm0755 "$pkgdir/opt"
+	install -dm0755 "$pkgdir/usr/lib"
 	cp -a "$srcdir/$_pkgname" "$_dest"
 
 	rm -f "$_dest/start-mullvad-browser.desktop" \
@@ -51,7 +51,7 @@ package() {
 	find "$_dest" -type f -perm -u+x -exec chmod 0755 {} +
 	find "$_dest" -type f ! -perm -u+x -exec chmod 0644 {} +
 
-	# Profile goes to ~/.mullvad-browser instead of /opt
+	# Profile goes to ~/.mullvad-browser instead of the install dir
 	touch "$_dest/Browser/is-packaged-app"
 
 	install -Dm0644 /dev/stdin "$_dest/Browser/distribution/policies.json" <<-'JSON'
@@ -63,7 +63,7 @@ package() {
 	JSON
 
 	install -dm0755 "$pkgdir/usr/bin"
-	ln -s "/opt/$_pkgname/Browser/start-mullvad-browser" "$pkgdir/usr/bin/$_pkgname"
+	ln -s "/usr/lib/$_pkgname/Browser/start-mullvad-browser" "$pkgdir/usr/bin/$_pkgname"
 
 	install -Dm0644 "$srcdir/$_pkgname.desktop" "$pkgdir/usr/share/applications/$_pkgname.desktop"
 
