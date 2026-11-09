@@ -11,7 +11,7 @@ if [[ -z $latest ]]; then
   exit 1
 fi
 
-current=$(source PKGBUILD && echo "$pkgver")
+current=$(sed -n "s/^\tpkgver = //p" .SRCINFO)
 if (( $(vercmp "$latest" "$current") <= 0 )); then
   echo "Up to date: $current"
   exit 0
