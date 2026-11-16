@@ -2,8 +2,8 @@
 
 pkgname=mullvad-browser-bin
 _pkgname=mullvad-browser
-pkgver=16.0
-pkgrel=2
+pkgver=16.0.1
+pkgrel=1
 pkgdesc='Privacy-focused web browser by Mullvad VPN and the Tor Project (binary release)'
 arch=(x86_64 aarch64)
 url='https://mullvad.net/en/browser'
@@ -25,9 +25,9 @@ source_aarch64=("https://cdn.mullvad.net/browser/$pkgver/$_pkgname-linux-aarch64
 # gpg --import keys/pgp/EF6E286DDA85EA2A4BA7DE684E2C6E8793298290.asc
 validpgpkeys=('EF6E286DDA85EA2A4BA7DE684E2C6E8793298290')
 sha256sums=('5171d67e98b54082a9c60e0aa58c2a3a54c003d563f15ecb9d72f19b29d0f09f')
-sha256sums_x86_64=('aa571c6dc00aad214af9a92e414f3a6bd9e12139b4819f5af2f3aaaa3d9f4aa3'
+sha256sums_x86_64=('c1760c918232a2a20bb91ad2fa23ca1f6639af3a4e91f774cbab0589d6c22446'
                    'SKIP')
-sha256sums_aarch64=('7fda41ffe4c2d732a544f55092ef483128c224a2aa4680d863e793c75e03b3d9'
+sha256sums_aarch64=('f4188a9bdcad9182cb5bb4306a32ca7c38be9cffd05eb4a4e3a24c04df5f2acb'
                     'SKIP')
 
 package() {
