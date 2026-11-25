@@ -1,6 +1,6 @@
 pkgbase = mullvad-browser-bin
 	pkgdesc = Privacy-focused web browser by Mullvad VPN and the Tor Project (binary release)
-	pkgver = 16.0.3
+	pkgver = 1.0
 	pkgrel = 1
 	url = https://mullvad.net/en/browser
 	arch = x86_64
