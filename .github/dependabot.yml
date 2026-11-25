@@ -4,3 +4,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # None for our own workflows: no one else would catch a bad release in the
+    # meantime, and the update PR gets reviewed either way
+    cooldown:
+      default-days: 7
+      exclude:
+        - recmanj/github-workflows*
