@@ -1,6 +1,6 @@
 pkgbase = mullvad-browser-bin
 	pkgdesc = Privacy-focused web browser by Mullvad VPN and the Tor Project (binary release)
-	pkgver = 16.0.2
+	pkgver = 16.0.3
 	pkgrel = 1
 	url = https://mullvad.net/en/browser
 	arch = x86_64
@@ -25,20 +25,20 @@ pkgbase = mullvad-browser-bin
 	optdepends = libva: hardware video decoding
 	optdepends = speech-dispatcher: text-to-speech
 	optdepends = xdg-desktop-portal: native file dialogs and screen sharing
-	provides = mullvad-browser=16.0.2
+	provides = mullvad-browser=16.0.3
 	conflicts = mullvad-browser
 	options = !strip
 	options = !debug
 	source = mullvad-browser.desktop
 	validpgpkeys = EF6E286DDA85EA2A4BA7DE684E2C6E8793298290
 	sha256sums = 5171d67e98b54082a9c60e0aa58c2a3a54c003d563f15ecb9d72f19b29d0f09f
-	source_x86_64 = https://cdn.mullvad.net/browser/16.0.2/mullvad-browser-linux-x86_64-16.0.2.tar.xz
-	source_x86_64 = https://cdn.mullvad.net/browser/16.0.2/mullvad-browser-linux-x86_64-16.0.2.tar.xz.asc
-	sha256sums_x86_64 = c03bea00314eb3446280ca851f71a763b00c7c0d1dd47d425d0495063ae6c9fe
+	source_x86_64 = https://cdn.mullvad.net/browser/16.0.3/mullvad-browser-linux-x86_64-16.0.3.tar.xz
+	source_x86_64 = https://cdn.mullvad.net/browser/16.0.3/mullvad-browser-linux-x86_64-16.0.3.tar.xz.asc
+	sha256sums_x86_64 = 73deadb98edae3ca88d6607681bd904e9cba61efd429386970e2ee5749f86bed
 	sha256sums_x86_64 = SKIP
-	source_aarch64 = https://cdn.mullvad.net/browser/16.0.2/mullvad-browser-linux-aarch64-16.0.2.tar.xz
-	source_aarch64 = https://cdn.mullvad.net/browser/16.0.2/mullvad-browser-linux-aarch64-16.0.2.tar.xz.asc
-	sha256sums_aarch64 = 55664322d0e5cb0a71d40eae48e40497b417acbffbb0b91edcaecbe8b9023e9d
+	source_aarch64 = https://cdn.mullvad.net/browser/16.0.3/mullvad-browser-linux-aarch64-16.0.3.tar.xz
+	source_aarch64 = https://cdn.mullvad.net/browser/16.0.3/mullvad-browser-linux-aarch64-16.0.3.tar.xz.asc
+	sha256sums_aarch64 = 88acbf4c731932a2f38246d7b53d2ebea82e0683a8c4d43dd332bd3403ecb862
 	sha256sums_aarch64 = SKIP
 
 pkgname = mullvad-browser-bin
