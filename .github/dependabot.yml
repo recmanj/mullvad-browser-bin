@@ -10,3 +10,8 @@ updates:
       default-days: 7
       exclude:
         - recmanj/github-workflows*
+    # One PR for all the shared workflows, so they stay on the same version
+    groups:
+      github-workflows:
+        patterns:
+          - recmanj/github-workflows*
