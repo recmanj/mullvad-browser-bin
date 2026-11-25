@@ -15,11 +15,6 @@ concurrency:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
-    container: archlinux:base-devel
-    timeout-minutes: 45
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - run: .github/scripts/validate.sh
+    uses: recmanj/github-workflows/.github/workflows/arch-ci.yml@307b8aa52c8cd6cad2e81713ead423e1d02aac45
+    permissions:
+      contents: read
