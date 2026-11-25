@@ -2,7 +2,7 @@
 
 pkgname=mullvad-browser-bin
 _pkgname=mullvad-browser
-pkgver=1.0
+pkgver=16.0.3
 pkgrel=1
 pkgdesc='Privacy-focused web browser by Mullvad VPN and the Tor Project (binary release)'
 arch=(x86_64 aarch64)
